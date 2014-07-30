@@ -18,6 +18,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'wtforms',
+    'cryptacular',
     ]
 
 setup(name='blogr',
