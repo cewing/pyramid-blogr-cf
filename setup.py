@@ -10,13 +10,19 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 requires = [
     'pyramid',
-    'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'pyramid_jinja2',
+    'wtforms',
+    'cryptacular',
+    'WebHelpers2',
+    'paginate',
+    'markdown',
+    'pygments',
     ]
 
 setup(name='blogr',
