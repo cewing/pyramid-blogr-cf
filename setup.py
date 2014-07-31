@@ -19,6 +19,8 @@ requires = [
     'waitress',
     'wtforms',
     'cryptacular',
+    'WebHelpers2',
+    'paginate',
     ]
 
 setup(name='blogr',
