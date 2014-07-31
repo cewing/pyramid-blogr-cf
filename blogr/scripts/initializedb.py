@@ -1,3 +1,4 @@
+from cryptacular.bcrypt import BCRYPTPasswordManager
 import os
 import sys
 import transaction
@@ -13,7 +14,7 @@ from pyramid.scripts.common import parse_vars
 
 from ..models import (
     DBSession,
-    MyModel,
+    User,
     Base,
     )
 
@@ -26,6 +27,7 @@ def usage(argv):
 
 
 def main(argv=sys.argv):
+    manager = BCRYPTPasswordManager()
     if len(argv) < 2:
         usage(argv)
     config_uri = argv[1]
@@ -36,5 +38,6 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
+        password = manager.encode(u'admin')
+        admin = User(name=u'admin', password=password)
+        DBSession.add(admin)
