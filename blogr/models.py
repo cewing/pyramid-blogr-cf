@@ -1,3 +1,4 @@
+from cryptacular.bcrypt import BCRYPTPasswordManager
 import datetime
 from paginate import Page
 import sqlalchemy as sa
@@ -30,6 +31,14 @@ class User(Base):
     password = Column(Unicode(255), nullable=False)
     last_logged = Column(DateTime, default=datetime.datetime.utcnow)
 
+    @classmethod
+    def by_name(cls, name):
+        return DBSession.query(User).filter(User.name == name).first()
+
+    def verify_password(self, password):
+        manager = BCRYPTPasswordManager()
+        return manager.check(self.password, password)
+
 
 class Entry(Base):
     __tablename__ = 'entries'
@@ -41,7 +50,7 @@ class Entry(Base):
 
     @classmethod
     def all(cls):
-        return DBSession.query(cls).order_by(sa.desc(cls.created))
+        return DBSession.query(cls).order_by(sa.desc(cls.created)).all()
 
     @classmethod
     def by_id(cls, id):
@@ -49,7 +58,7 @@ class Entry(Base):
 
     @classmethod
     def paginator(cls, request, page=1):
-        urlmaker = UrlMaker()
+        urlmaker = UrlMaker(request)
         return Page(Entry.all(), page, url_maker=urlmaker, items_per_page=10)
 
     @property

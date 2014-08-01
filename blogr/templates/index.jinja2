@@ -1,1 +1,40 @@
-im an index
+{% extends "blogr:templates/layout.jinja2" %}
+{% from 'blogr:templates/macros.jinja2' import render_form %}
+
+{% block content %}
+
+{% if paginator.items %}
+
+{{ paginator.pager() }}
+
+<h2>Blog entries</h2>
+
+<ul>
+  {% for entry in paginator.items %}
+    <li>
+    <a href="{{ request.route_url('blog', id=entry.id, slug=entry.slug) }}">
+    {{ entry.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+{{ paginator.pager() }}
+
+{% else %}
+
+<p>No blog entries found.</p>
+
+{% endif %}
+
+{% if login_form %}
+<div class="row">
+  <div class="col-md-5">
+    {{ render_form(login_form, request.route_url('auth',action='in'), action_text='Log In') }}
+  </div>
+</div>
+{% else %}
+<p><a href="{{ request.route_url('blog_action',action='create') }}">
+Create a new blog entry</a></p>
+{% endif %}
+
+{% endblock %}

@@ -1,1 +1,10 @@
-edit me
+{% extends "blogr:templates/layout.jinja2" %}
+{% from 'blogr:templates/macros.jinja2' import render_form %}
+
+{% block content %}
+
+{{ render_form(form, request.route_url('blog_action', action=action), action_text='Submit') }}
+
+<p><a href="{{ request.route_url('home') }}">Go Back</a></p>
+
+{% endblock %}
