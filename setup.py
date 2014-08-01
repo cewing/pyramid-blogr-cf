@@ -21,6 +21,8 @@ requires = [
     'cryptacular',
     'WebHelpers2',
     'paginate',
+    'markdown',
+    'pygments',
     ]
 
 setup(name='blogr',
