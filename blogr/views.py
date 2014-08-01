@@ -1,6 +1,13 @@
-from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import (
+    HTTPNotFound,
+    HTTPFound,
+    )
 from pyramid.view import view_config
 
+from .forms import (
+    BlogCreateForm,
+    BlogUpdateForm,
+    )
 from .models import (
     DBSession,
     Entry,
@@ -26,13 +33,29 @@ def blog_view(request):
 @view_config(route_name='blog_action', match_param='action=create',
              renderer='blogr:templates/edit_blog.jinja2')
 def blog_create(request):
-    return {}
+    entry = Entry()
+    form = BlogCreateForm(request.POST)
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(entry)
+        DBSession.add(entry)
+        return HTTPFound(location=request.route_url('home'))
+    return {'form': form, 'action': request.matchdict.get('action')}
 
 
 @view_config(route_name='blog_action', match_param='action=edit',
              renderer='blogr:templates/edit_blog.jinja2')
 def blog_update(request):
-    return {}
+    id = int(request.params.get('id', -1))
+    entry = Entry.by_id(id)
+    if not entry:
+        return HTTPNotFound()
+    form = BlogUpdateForm(request.POST, entry)
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(entry)
+        return HTTPFound(
+            location=request.route_url('blog', id=entry.id, slug=entry.slug)
+        )
+    return {'form': form, 'action': request.matchdict.get('action')}
 
 
 @view_config(route_name='auth', match_param='action=in', renderer='string',
