@@ -1,3 +1,4 @@
+from cryptacular.bcrypt import BCRYPTPasswordManager
 import datetime
 from paginate import Page
 import sqlalchemy as sa
@@ -29,6 +30,14 @@ class User(Base):
     name = Column(Unicode(255), unique=True, index=True, nullable=False)
     password = Column(Unicode(255), nullable=False)
     last_logged = Column(DateTime, default=datetime.datetime.utcnow)
+
+    @classmethod
+    def by_name(cls, name):
+        return DBSession.query(User).filter(User.name == name).first()
+
+    def verify_password(self, password):
+        manager = BCRYPTPasswordManager()
+        return manager.check(self.password, password)
 
 
 class Entry(Base):

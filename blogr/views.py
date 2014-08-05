@@ -2,15 +2,22 @@ from pyramid.httpexceptions import (
     HTTPNotFound,
     HTTPFound,
     )
+from pyramid.security import (
+    authenticated_userid,
+    forget,
+    remember,
+    )
 from pyramid.view import view_config
 
 from .forms import (
     BlogCreateForm,
     BlogUpdateForm,
+    LoginForm,
     )
 from .models import (
     DBSession,
     Entry,
+    User,
     )
 
 
@@ -18,7 +25,10 @@ from .models import (
 def index_page(request):
     page = int(request.params.get('page', 1))
     paginator = Entry.paginator(request, page)
-    return {'paginator': paginator}
+    form = None
+    if not authenticated_userid(request):
+        form = LoginForm()
+    return {'paginator': paginator, 'login_form': form}
 
 
 @view_config(route_name='blog', renderer='blogr:templates/view_blog.jinja2')
@@ -27,7 +37,8 @@ def blog_view(request):
     entry = Entry.by_id(id)
     if not entry:
         return HTTPNotFound()
-    return {'entry': entry}
+    logged_in = bool(authenticated_userid(request))
+    return {'entry': entry, 'logged_in': logged_in}
 
 
 @view_config(route_name='blog_action', match_param='action=create',
@@ -64,4 +75,17 @@ def blog_update(request):
              request_method='POST')
 @view_config(route_name='auth', match_param='action=out', renderer='string')
 def sign_in_out(request):
-    return {}
+    login_form = None
+    if request.method == 'POST':
+        login_form = LoginForm(request.POST)
+
+    if login_form and login_form.validate():
+        user = User.by_name(login_form.username.data)
+        if user and user.verify_password(login_form.password.data):
+            headers = remember(request, user.name)
+        else:
+            headers = forget(request)
+    else:
+        headers = forget(request)
+    return HTTPFound(location=request.route_url('home'),
+                     headers=headers)
