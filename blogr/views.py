@@ -1,3 +1,5 @@
+from jinja2 import Markup
+import markdown
 from pyramid.httpexceptions import (
     HTTPNotFound,
     HTTPFound,
@@ -89,3 +91,14 @@ def sign_in_out(request):
         headers = forget(request)
     return HTTPFound(location=request.route_url('home'),
                      headers=headers)
+
+
+# Jinja2 markdown filter
+def render_markdown(content, linenums=False, pygments_style='default'):
+    ext = "codehilite(linenums={linenums}, pygments_style={pygments_style})"
+    output = Markup(
+        markdown.markdown(
+            content,
+            extensions=[ext.format(**locals()), 'fenced_code'])
+    )
+    return output
