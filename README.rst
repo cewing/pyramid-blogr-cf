@@ -8,6 +8,8 @@ Python. It has been adapted from the
 tutorial which in turn is an adaptation of the
 `Flask Tutorial <http://flask.pocoo.org/docs/tutorial/>`_.
 
+This tutorial is compatible with Python versions 2.7 and later.
+
 .. contents:: :local:
 
 Setting Up Your Environment
