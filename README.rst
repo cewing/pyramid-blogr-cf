@@ -15,6 +15,35 @@ This tutorial is compatible with Python versions 2.7 and later.
 Setting Up Your Environment
 ===========================
 
+Getting Python
+--------------
+
+To follow along with this tutorial you will need a computer with Python
+installed. In most cases, this will automatically be true.  You can check by
+running the following command in a command-line terminal::
+
+    $ which python
+    /usr/bin/python
+
+If the `which` shell command returns a path, then you have Python on your
+computer.  If no value is printed, then you do not.  You will need to install
+python either using one of the installers from 
+`the python website <https://www.python.org>`_, or using your system's package
+manager (`apt-get`, `yum`, `rpm`, etc.).
+
+There are several versions of Python available.  You will need to have either
+version 2.7.x (the latest in the Python 2 series) or version 3.3 or later (in
+the Python 3 series). You can check which version of Python you have with this
+command::
+
+    $ python -V
+    Python 2.7.5
+
+Make sure that your version is appropriate.
+
+Creating A Sandbox
+------------------
+
 We will use a tool called `virtualenv` to create a Python sandbox in which to
 work.
 
@@ -69,6 +98,9 @@ command::
     $ which python
     /usr/bin/python
 
+Getting the Tutorial Code
+-------------------------
+
 Your final step in preparing your environment for this tutorial is to clone
 this project repository from github::
 
@@ -80,11 +112,6 @@ this project repository from github::
     $ ls
     blogr
     pyramid-blogr-cf
-
-Once that is complete, you're ready to begin the tutorial
-
-Tutorial Outline
-================
 
 This tutorial is formatted as a set of commits on the `tutorial_walkthrough`
 branch of this repository. Each commit makes a few changes that add
@@ -108,6 +135,24 @@ The commit log will show you the steps in the tutorial (and the commit hashes
 are listed below). For each step, you'll checkout a successive commit and we'll
 discuss the code changes made: the purpose of the changes, how the code works,
 and what Python features are demonstrated.
+
+As we pass through each step, feel free to make edits and see how you can
+change the application. If you do change files, you can always revert your
+changes with `git` (you'll have to do so before moving to the next step in the
+tutorial)::
+
+    $ git status
+    ...
+      modified:   README.rst
+
+    $ git checkout -- README.rst
+
+
+Tutorial Outline
+================
+
+Let's step through the process of creating a simple but featureful blog
+application using the Pyramid web framework.
 
 Step 1: Project Creation
 ------------------------
