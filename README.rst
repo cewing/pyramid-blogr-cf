@@ -75,8 +75,8 @@ The most recent version when this documentation was written is 1.5.6
 Creating A Sandbox
 ------------------
 
-We will use a tool called `virtualenv` to create a Python sandbox in which to
-work.
+We will use a tool called `virtualenv <http://virtualenv.readthedocs.org>` to 
+create a Python sandbox in which to work.
 
 Begin by installing the package using `pip`::
 
