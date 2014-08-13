@@ -8,6 +8,7 @@ Python. It has been adapted from the
 tutorial which in turn is an adaptation of the
 `Flask Tutorial <http://flask.pocoo.org/docs/tutorial/>`_.
 
+.. contents:: :local:
 
 Setting Up Your Environment
 ===========================
