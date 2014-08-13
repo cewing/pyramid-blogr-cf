@@ -41,23 +41,49 @@ command::
 
 Make sure that your version is appropriate.
 
+Getting a Python Package Installer
+----------------------------------
+
+In order to install new Python libraries and packages into your system, you
+must have a package installer.  The most popular of these is `pip
+<http://pip.readthedocs.org/en/latest/installing.html>`_. You can check if your
+Python installation already has pip by running the following command at your
+command-line::
+
+    $ which pip
+    /usr/local/bin/pip
+
+If you already have a version of `pip` installed, please **skip to the next
+section**.
+
+If you do not have `pip` installed, you can install it by running the pip
+bootstrap script::
+
+    $ cd
+    $ mkdir installers
+    $ cd installers
+    $ curl -O https://bootstrap.pypa.io/get-pip.py
+    $ sudo python get-pip.py
+
+That will install `pip` after which you should be able to use it to install and
+upgrade Python add-ons.  Begin by upgrading pip itself::
+
+    $ sudo pip install -U pip
+
+The most recent version when this documentation was written is 1.5.6
+
 Creating A Sandbox
 ------------------
 
 We will use a tool called `virtualenv` to create a Python sandbox in which to
 work.
 
-Begin by downloading and installing the package from source::
+Begin by installing the package using `pip`::
 
-    $ curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-X.Y.Z.tar.gz
-    $ tar xvfz virtualenv-X.X.tar.gz
-    $ cd virtualenv-X.Y.Z
-    $ [sudo] python setup.py install
+    $ sudo pip install virtualenv
 
-* At the time of this writing, the most recent version of `virtualenv` is
-  1.11.6, so substitute `1.11.6` for the `X.Y.Z` in the first line above.
-* You may need to use `sudo` to install the virtualenv package in your system
-  Python.
+* You will likely need to use `sudo` to install the virtualenv package in your
+  system Python.
 
 After `virtualenv` is installed, you'll want to create a project folder in
 which to work::
