@@ -12,10 +12,10 @@ This tutorial is compatible with Python versions 2.7 and later.
 
 .. contents:: :local:
 
-Setting Up Your Environment
+Set Up Your Environment
 ===========================
 
-Getting Python
+Get Python
 --------------
 
 To follow along with this tutorial you will need a computer with Python
@@ -41,7 +41,7 @@ command::
 
 Make sure that your version is appropriate.
 
-Getting a Python Package Installer
+Get a Python Package Installer
 ----------------------------------
 
 In order to install new Python libraries and packages into your system, you
@@ -72,7 +72,7 @@ upgrade Python add-ons.  Begin by upgrading pip itself::
 
 The most recent version when this documentation was written is 1.5.6
 
-Creating A Sandbox
+Create A Sandbox
 ------------------
 
 We will use a tool called `virtualenv <http://virtualenv.readthedocs.org>`_ to
@@ -124,7 +124,7 @@ command::
     $ which python
     /usr/bin/python
 
-Getting the Tutorial Code
+Get the Tutorial Code
 -------------------------
 
 Your final step in preparing your environment for this tutorial is to clone
@@ -438,7 +438,7 @@ entry now (http://localhost:6543/blog/1/foo)?
 * Receiving data from the client via the request
 * Simple jinja2 template structure and template inheritance
 
-Step 8: Creating and Editing Entries
+Step 8: Create and Edit Entries
 ------------------------------------
 
 **To Reach This Step**::
@@ -572,7 +572,7 @@ Now we can log in and create another entry::
 * Handling login and logout
 * Conditional rendering in templates
 
-Step 11: Styling Forms
+Step 11: Style Forms
 ----------------------
 
 **To Reach This Step**::
