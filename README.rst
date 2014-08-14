@@ -27,7 +27,7 @@ running the following command in a command-line terminal::
 
 If the `which` shell command returns a path, then you have Python on your
 computer.  If no value is printed, then you do not.  You will need to install
-python either using one of the installers from 
+python either using one of the installers from
 `the python website <https://www.python.org>`_, or using your system's package
 manager (`apt-get`, `yum`, `rpm`, etc.).
 
@@ -75,7 +75,7 @@ The most recent version when this documentation was written is 1.5.6
 Creating A Sandbox
 ------------------
 
-We will use a tool called `virtualenv <http://virtualenv.readthedocs.org>` to 
+We will use a tool called `virtualenv <http://virtualenv.readthedocs.org>`_ to
 create a Python sandbox in which to work.
 
 Begin by installing the package using `pip`::
@@ -187,7 +187,7 @@ Step 1: Project Creation
 
     $ git checkout a656bc23
 
-We are using the `pyramid web framework <http://docs.pylonsproject.org/en/latest/docs/pyramid.html>`_ 
+We are using the `pyramid web framework <http://docs.pylonsproject.org/en/latest/docs/pyramid.html>`_
 for this tutorial. The framework comes with a code templating tool called
 `pcreate`. This tool uses *scaffolds* to generate basic project skeletons we
 can use to get started.
@@ -236,7 +236,7 @@ Having a `setup.py` file means that your code can be *installed* into a Python
 environment. When it is installed, all the *dependencies* we have listed will
 also be installed, ensuring that the code we require is available.
 
-Finally, we make a small change to the `configuration <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/configuration.html>`_ 
+Finally, we make a small change to the `configuration <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/configuration.html>`_
 for our application. Pyramid uses configuration to control how an application
 behaves.  In this case, we have changed the templating engine we will use from
 `chameleon <https://chameleon.readthedocs.org>`_ to `jinja2 <http://jinja.pocoo.org>`_.
@@ -494,7 +494,7 @@ in can add or edit them.
 
 Pyramid has `several possible methods <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/security.html>`_
 for handling authorization.  We'll be using the ACL policy, which makes use of
-`Access Control Lists <http://en.wikipedia.org/wiki/Access_control_list>`_. We 
+`Access Control Lists <http://en.wikipedia.org/wiki/Access_control_list>`_. We
 create a new factory object that has an `__acl__` special attribute. This
 attribute is our access control list. It consists of a series of Access Control
 Entries (ACEs), which consist of a rule (Allow or Deny), a *principal* (an
