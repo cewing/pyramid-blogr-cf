@@ -13,10 +13,10 @@ This tutorial is compatible with Python versions 2.7 and later.
 .. contents:: :local:
 
 Set Up Your Environment
-===========================
+=======================
 
 Get Python
---------------
+----------
 
 To follow along with this tutorial you will need a computer with Python
 installed. In most cases, this will automatically be true.  You can check by
@@ -42,7 +42,7 @@ command::
 Make sure that your version is appropriate.
 
 Get a Python Package Installer
-----------------------------------
+------------------------------
 
 In order to install new Python libraries and packages into your system, you
 must have a package installer.  The most popular of these is `pip
@@ -73,7 +73,7 @@ upgrade Python add-ons.  Begin by upgrading pip itself::
 The most recent version when this documentation was written is 1.5.6
 
 Create A Sandbox
-------------------
+----------------
 
 We will use a tool called `virtualenv <http://virtualenv.readthedocs.org>`_ to
 create a Python sandbox in which to work.
@@ -125,7 +125,7 @@ command::
     /usr/bin/python
 
 Get the Tutorial Code
--------------------------
+---------------------
 
 Your final step in preparing your environment for this tutorial is to clone
 this project repository from github::
@@ -439,7 +439,7 @@ entry now (http://localhost:6543/blog/1/foo)?
 * Simple jinja2 template structure and template inheritance
 
 Step 8: Create and Edit Entries
-------------------------------------
+-------------------------------
 
 **To Reach This Step**::
 
@@ -573,7 +573,7 @@ Now we can log in and create another entry::
 * Conditional rendering in templates
 
 Step 11: Style Forms
-----------------------
+--------------------
 
 **To Reach This Step**::
 
@@ -614,4 +614,63 @@ Step 12: Simple Entry Formatting with Markdown
 
     $ git checkout 85faa53f
 
+One final improvement before we're done here. At the moment, our blog posts are
+just plain text.  Wouldn't it be nice to be able to have formatting?
+`Markdown <http://en.wikipedia.org/wiki/Markdown>`_ is a plain-text formatting
+syntax that allows you to write simple text that is then converted to valid HTML.
 
+In Python, markdown text is converted using the `markdown <http://pythonhosted.org/Markdown/>`_
+library. We could convert the plain-text stored in the database *before*
+sending it to our templates, but that's too much work.  Instead, we'll extend
+our Jinja2 templates with a `custom filter <http://jinja.pocoo.org/docs/api/#custom-filters>`_
+so that we can format the text directly in the template rendering phase.
+
+One of the features of the `markdown` Python library is the ability to enable
+extensions to the main formatter. We use this feature by enabling code
+highlighting using the powerful `pygments <http://pygments.org>`_ python
+library. Combining that with the extension supporting fenced code blocks allows
+us to have GitHub-style inline code examples in our blog posts, and have them
+colorized. We can control the color with CSS (here we add a
+`pre-defined set of rules <https://github.com/richleland/pygments-css>`_ that
+provide colorization similar to GitHub's).
+
+And now we can create and edit blog posts, adding formatting and colorized code
+blocks::
+
+    (blogr)$ pserve development.ini --reload
+    Starting subprocess with file monitor
+    Starting server in PID 30051.
+    serving on http://0.0.0.0:6543
+
+**Topics**
+
+* Jinja2 template filters
+* Text format conversion
+* Syntax highlighting
+* CSS
+
+Follow-Up
+---------
+
+We've burned through a few hours creating a simple blog app that you could use
+to keep a learning journal or similar personal blog.
+
+There are a number of steps you could take to improve this tool:
+
+* Convert the application to use the `PostgreSQL <http://www.postgresql.org>`_
+  database by adding a dependency on `psycopg2 <http://initd.org/psycopg/docs/>`_
+  to `setup.py` and then updating the database settings in `development.ini`
+  and `production.ini`.
+
+* Update the `handling of configuration <http://pyramid.readthedocs.org/en/latest/narr/advconfig.html#including-configuration-from-external-sources>`_
+  (including creating your admin user) to be in line with `12-factor <http://12factor.net>`_
+  best practices so that your application is both more secure and more easily
+  portable.
+
+* `Deploy your application <http://pyramid-cookbook.readthedocs.org/en/latest/deployment/index.html>`_
+  to Heroku, Google App Engine, AWS or some other host so that you can use it
+  to write about what you learn here at `Code Fellows <https://www.codefellows.org>`_.
+
+But we'll leave those tasks as an exercise for the reader.
+
+Thanks for your time and attention.
