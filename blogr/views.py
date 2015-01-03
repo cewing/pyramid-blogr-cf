@@ -74,7 +74,6 @@ def blog_update(request):
              request_method='POST')
 @view_config(route_name='auth', match_param='action=out', renderer='string')
 def sign_in_out(request):
-    import pdb; pdb.set_trace()
     login_form = None
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
@@ -94,7 +93,6 @@ def sign_in_out(request):
 # Jinja2 markdown filter
 def render_markdown(content, linenums=False, pygments_style='default'):
     ext = "codehilite(linenums={linenums}, pygments_style={pygments_style})"
-    import pdb; pdb.set_trace()
     output = Markup(
         markdown.markdown(
             content,
