@@ -1,0 +1,3 @@
+#!/bin/bash
+python setup.py develop
+initialize_blogr_db heroku.ini
