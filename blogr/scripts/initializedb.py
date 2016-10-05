@@ -9,13 +9,15 @@ from pyramid.paster import (
 
 from pyramid.scripts.common import parse_vars
 
+
+from blogr import context
 from ..models.meta import Base
 from ..models import (
     get_engine,
     get_session_factory,
     get_tm_session,
     )
-from ..models import MyModel
+from ..models import User
 
 
 def usage(argv):
@@ -40,6 +42,7 @@ def main(argv=sys.argv):
 
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
+        hashed = context.encrypt('admin')
 
-        model = MyModel(name='one', value=1)
-        dbsession.add(model)
+        admin = User(name='admin', password=hashed)
+        dbsession.add(admin)

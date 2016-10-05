@@ -1,3 +1,4 @@
+from passlib.apps import custom_app_context as context
 from pyramid.config import Configurator
 
 
