@@ -17,7 +17,8 @@ def blog_view(request):
 
 
 @view_config(route_name='blog_action', match_param='action=create',
-             renderer='blogr:templates/edit_blog.jinja2')
+             renderer='blogr:templates/edit_blog.jinja2',
+             permission='create')
 def blog_create(request):
     entry = BlogRecord()
     form = BlogCreateForm(request.POST)
@@ -29,7 +30,8 @@ def blog_create(request):
 
 
 @view_config(route_name='blog_action', match_param='action=edit',
-             renderer='blogr:templates/edit_blog.jinja2')
+             renderer='blogr:templates/edit_blog.jinja2',
+             permission='create')
 def blog_update(request):
     blog_id = int(request.params.get('id', -1))
     entry = BlogRecordService.by_id(blog_id, request)
