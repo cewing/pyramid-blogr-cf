@@ -9,6 +9,7 @@ from sqlalchemy import (
     Unicode,
     DateTime,
 )
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -17,6 +18,8 @@ class User(Base):
     name = Column(Unicode(255), unique=True, nullable=False)
     password = Column(Unicode(255), nullable=False)
     last_logged = Column(DateTime, default=datetime.datetime.utcnow)
+
+    posts = relationship("BlogRecord", back_populates="author")
 
     def verify_password(self, password):
         return context.verify(password, self.password)

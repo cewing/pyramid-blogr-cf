@@ -10,7 +10,9 @@ from sqlalchemy import (
     Unicode,
     UnicodeText,
     DateTime,
+    ForeignKey,
 )
+from sqlalchemy.orm import relationship
 
 
 class BlogRecord(Base):
@@ -20,6 +22,9 @@ class BlogRecord(Base):
     body = Column(UnicodeText, default=u'')
     created = Column(DateTime, default=datetime.datetime.utcnow)
     edited = Column(DateTime, default=datetime.datetime.utcnow)
+    author_id = Column(Integer, ForeignKey('users.id'))
+
+    author = relationship("User", back_populates="posts")
 
     @property
     def slug(self):
