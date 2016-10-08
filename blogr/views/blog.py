@@ -24,6 +24,7 @@ def blog_create(request):
     form = BlogCreateForm(request.POST)
     if request.method == 'POST' and form.validate():
         form.populate_obj(entry)
+        entry.author = request.user
         request.dbsession.add(entry)
         return HTTPFound(location=request.route_url('home'))
     return {'form': form, 'action': request.matchdict.get('action')}
