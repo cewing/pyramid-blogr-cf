@@ -1,6 +1,9 @@
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
+from pyramid.security import remember, forget
 
 from ..services.blog_record import BlogRecordService
+from ..services.user import UserService
 
 
 @view_config(route_name='home',
@@ -15,4 +18,13 @@ def index_page(request):
              request_method='POST')
 @view_config(route_name='auth', match_param='action=out', renderer='string')
 def sign_in_out(request):
-    return 'Sign In or Out'
+    username = request.POST.get('username')
+    if username:
+        user = UserService.by_name(username, request=request)
+        if user and user.verify_password(request.POST.get('password')):
+            headers = remember(request, user.name)
+        else:
+            headers = forget(request)
+    else:
+        headers = forget(request)
+    return HTTPFound(location=request.route_url('home'), headers=headers)
