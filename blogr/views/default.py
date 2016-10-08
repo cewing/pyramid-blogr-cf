@@ -4,6 +4,8 @@ from pyramid.security import remember, forget
 
 from ..services.blog_record import BlogRecordService
 from ..services.user import UserService
+from ..forms import RegistrationForm
+from ..models.user import User
 
 
 @view_config(route_name='home',
@@ -28,3 +30,15 @@ def sign_in_out(request):
     else:
         headers = forget(request)
     return HTTPFound(location=request.route_url('home'), headers=headers)
+
+
+@view_config(route_name='register',
+             renderer='blogr:templates/register.jinja2')
+def register(request):
+    form = RegistrationForm(request.POST)
+    if request.method == 'POST' and form.validate():
+        new_user = User(name=form.username.data)
+        new_user.set_password(form.password.data)
+        request.dbsession.add(new_user)
+        return HTTPFound(location=request.route_url('home'))
+    return {'form': form}
