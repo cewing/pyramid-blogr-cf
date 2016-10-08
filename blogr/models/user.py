@@ -20,3 +20,7 @@ class User(Base):
 
     def verify_password(self, password):
         return context.verify(password, self.password)
+
+    def set_password(self, password):
+        hashed = context.encrypt(password)
+        self.password = hashed
