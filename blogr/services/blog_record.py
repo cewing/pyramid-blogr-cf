@@ -29,3 +29,16 @@ class BlogRecordService(object):
 
         return SqlalchemyOrmPage(query, page, items_per_page=5,
                                  url_maker=url_maker)
+
+    @classmethod
+    def allow_editing(cls, request):
+        user = request.user
+        entry_id = request.params.get('id') or request.matchdict.get('id')
+        allowed = False
+        if user and entry_id:
+            model = BlogRecord
+            exists = request.dbsession.query(model).exists()
+            match_entry = exists.where(model.id == entry_id)
+            full_query = match_entry.where(model.author == user)
+            allowed = request.dbsession.query(full_query).scalar()
+        return allowed
