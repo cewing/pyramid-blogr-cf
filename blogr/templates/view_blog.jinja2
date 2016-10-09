@@ -8,7 +8,9 @@
     <p>Created <strong title="{{ entry.created }}">
         {{ entry.created_in_words }}</strong> ago</p>
 
-    <p><a href="{{ request.route_url('home') }}">Go Back</a> ::
+    <p><a href="{{ request.route_url('home') }}">Go Back</a>
+      {% if request.has_permission('edit') %} ::
         <a href="{{ request.route_url('blog_action', action='edit', _query={'id':entry.id}) }}">Edit entry</a>
+      {% endif %}
     </p>
 {% endblock %}
