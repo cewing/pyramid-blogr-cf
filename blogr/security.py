@@ -3,6 +3,7 @@ from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.security import Allow, Everyone, Authenticated
 
 from .services.user import UserService
+from .services.blog_record import BlogRecordService
 
 
 def get_user(request):
@@ -12,12 +13,16 @@ def get_user(request):
 
 
 class BlogRecordFactory(object):
-    __acl__ = [(Allow, Everyone, 'view'),
-               (Allow, Authenticated, 'create'),
-               (Allow, Authenticated, 'edit'), ]
+
+    def __acl__(self):
+        acl = [(Allow, Everyone, 'view'),
+               (Allow, Authenticated, 'create'), ]
+        if BlogRecordService.allow_editing(self.request):
+            acl.append((Allow, self.request.authenticated_userid, 'edit'))
+        return acl
 
     def __init__(self, request):
-        pass
+        self.request = request
 
 
 def includeme(config):
