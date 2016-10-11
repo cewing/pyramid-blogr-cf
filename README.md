@@ -11,6 +11,6 @@ This tutorial is intended for use with Python 3.
 [previous](https://github.com/cewing/pyramid-blogr-cf/tree/tutorial-step-06) ::
 [next](https://github.com/cewing/pyramid-blogr-cf/tree/tutorial-step-08)
 
-## Step 7: Define the Create and Edit Entry Views
+## Step 7: Add Authorization
 
-[view the differences](https://github.com/cewing/pyramid-blogr-cf/compare/54982330)
+[view the differences](https://github.com/cewing/pyramid-blogr-cf/compare/54982330...449f9513)
